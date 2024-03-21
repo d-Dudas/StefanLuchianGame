@@ -20,6 +20,8 @@ public class CameraController : MonoBehaviour
     private const int maxUpperViewAngleLimit = 360;
     private const int minUpperViewAngleLimit = 290;
 
+    public GameObject cursor;
+
     public Transform head;
 
     private Keyboard keyboard;
@@ -75,6 +77,7 @@ public class CameraController : MonoBehaviour
     {
         if (currentView == CameraView.firstPersonView)
         {
+            cursor.SetActive(false);
             currentView = CameraView.thirdPersonView;
             transform.eulerAngles = new Vector3(
                 20,
@@ -86,8 +89,9 @@ public class CameraController : MonoBehaviour
         else
         {
             AdjustCameraBeforeViewChange();
+            cursor.SetActive(true);
             currentView = CameraView.firstPersonView;
-            transform.position += transform.forward * 4f;
+            transform.position += transform.forward * 4.3f;
             transform.eulerAngles = new Vector3(
                 0,
                 transform.eulerAngles.y,
@@ -100,7 +104,6 @@ public class CameraController : MonoBehaviour
     {
         float desiredDistance = 4.0f;
         Vector3 desiredCameraPosition = head.position - transform.forward * desiredDistance;
-        // transform.position = Vector3.Lerp(transform.position, desiredCameraPosition, 20f * Time.deltaTime);
         transform.position = desiredCameraPosition;
     }
 
