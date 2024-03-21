@@ -20,6 +20,8 @@ public class CameraController : MonoBehaviour
     private const int maxUpperViewAngleLimit = 360;
     private const int minUpperViewAngleLimit = 290;
 
+    public Transform head;
+
     private Keyboard keyboard;
 
     void Start()
@@ -31,7 +33,7 @@ public class CameraController : MonoBehaviour
     {
         if (keyboard.numpad8Key.isPressed && currentView != CameraView.thirdPersonView)
         {
-            
+
             if (CanLookUp())
             {
                 transform.Rotate(new Vector3(-1, 0, 0));
@@ -58,7 +60,7 @@ public class CameraController : MonoBehaviour
     private bool CanLookUp()
     {
         int currentViewAngle = (int)transform.eulerAngles.x;
-        return (currentViewAngle <= maxLowerViewAngleLimit && currentViewAngle >= minLowerViewAngleLimit) || 
+        return (currentViewAngle <= maxLowerViewAngleLimit && currentViewAngle >= minLowerViewAngleLimit) ||
                 (currentViewAngle > minUpperViewAngleLimit && currentViewAngle <= maxUpperViewAngleLimit);
     }
 
@@ -83,6 +85,7 @@ public class CameraController : MonoBehaviour
         }
         else
         {
+            AdjustCameraBeforeViewChange();
             currentView = CameraView.firstPersonView;
             transform.position += transform.forward * 4f;
             transform.eulerAngles = new Vector3(
@@ -90,6 +93,37 @@ public class CameraController : MonoBehaviour
                 transform.eulerAngles.y,
                 transform.eulerAngles.z
             );
+        }
+    }
+
+    private void AdjustCameraBeforeViewChange()
+    {
+        float desiredDistance = 4.0f;
+        Vector3 desiredCameraPosition = head.position - transform.forward * desiredDistance;
+        // transform.position = Vector3.Lerp(transform.position, desiredCameraPosition, 20f * Time.deltaTime);
+        transform.position = desiredCameraPosition;
+    }
+
+    void LateUpdate()
+    {
+        if (currentView == CameraView.thirdPersonView)
+        {
+            AdjustCameraIfItHitsAWall();
+        }
+    }
+
+    private void AdjustCameraIfItHitsAWall()
+    {
+        float desiredDistance = 4.0f;
+        Vector3 desiredCameraPosition = head.position - transform.forward * desiredDistance;
+
+        if (Physics.Raycast(head.position, -transform.forward, out RaycastHit hit, desiredDistance))
+        {
+            transform.position = Vector3.Lerp(transform.position, head.position - transform.forward * hit.distance, 20f * Time.deltaTime);
+        }
+        else
+        {
+            transform.position = Vector3.Lerp(transform.position, desiredCameraPosition, 20f * Time.deltaTime);
         }
     }
 }
