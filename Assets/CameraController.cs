@@ -15,10 +15,12 @@ public class CameraController : MonoBehaviour
     private CameraView currentView = CameraView.firstPersonView;
 
     private bool isVKeyPressed = false;
+    private bool isEnterKeyPressed = false;
     private const int maxLowerViewAngleLimit = 50;
     private const int minLowerViewAngleLimit = -1;
     private const int maxUpperViewAngleLimit = 360;
     private const int minUpperViewAngleLimit = 290;
+    private const int minimumInteractionDistanceUnit = 2;
 
     public GameObject cursor;
 
@@ -57,6 +59,20 @@ public class CameraController : MonoBehaviour
         {
             isVKeyPressed = false;
         }
+        if(keyboard.enterKey.wasPressedThisFrame && !isEnterKeyPressed && currentView == CameraView.firstPersonView)
+        {
+            isEnterKeyPressed = true;
+            ObjectRaycast();
+        }
+        else if(keyboard.enterKey.wasReleasedThisFrame)
+        {
+            isEnterKeyPressed = false;
+        }
+        if(currentView == CameraView.firstPersonView)
+        {
+            ObjectHover();
+        }
+
     }
 
     private bool CanLookUp()
@@ -127,6 +143,31 @@ public class CameraController : MonoBehaviour
         else
         {
             transform.position = Vector3.Lerp(transform.position, desiredCameraPosition, 20f * Time.deltaTime);
+        }
+    }
+
+    private void ObjectRaycast()
+    {
+        Ray ray = new(transform.position, transform.forward);
+
+        if (Physics.Raycast(ray, out RaycastHit hitInfo, minimumInteractionDistanceUnit))
+        {
+            hitInfo.transform.gameObject.SendMessage("Interact", SendMessageOptions.DontRequireReceiver);
+        }
+    }
+
+    private void ObjectHover()
+    {
+        Ray ray = new(transform.position, transform.forward);
+
+        if(Physics.Raycast(ray, out RaycastHit hit, minimumInteractionDistanceUnit))
+        {
+            Debug.Log("Looking for object");
+            if (hit.transform.TryGetComponent<IInteractiveObject>(out var interactiveUI))
+            {
+                Debug.Log("Object found");
+                interactiveUI.HandleHoverEnter();
+            }
         }
     }
 }
