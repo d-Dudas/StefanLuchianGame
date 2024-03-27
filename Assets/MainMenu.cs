@@ -9,9 +9,7 @@ public class MainMenu : MonoBehaviour
 
     void Start()
     {
-        // Debug.Log("Hello World!");
         MainMenuButton();
-        // CreditsButton();
     }
 
     public void PlayNowButton()
@@ -21,14 +19,12 @@ public class MainMenu : MonoBehaviour
 
     public void MainMenuButton()
     {
-        Debug.Log("In Main Menu button function");
         MainMenuButtons.SetActive(true);
         CreditsPage.SetActive(false);
     }
 
     public void CreditsButton()
     {
-        Debug.Log("In Credits button function");
         MainMenuButtons.SetActive(false);
         CreditsPage.SetActive(true);
     }
