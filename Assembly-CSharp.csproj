@@ -68,6 +68,8 @@
     <Compile Include="Assets\OpenableDoor.cs" />
     <Compile Include="Assets\IInteractiveObject.cs" />
     <Compile Include="Assets\CameraController.cs" />
+    <Compile Include="Assets\BackgroundScaler.cs" />
+    <Compile Include="Assets\MainMenu.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
