@@ -9,6 +9,8 @@ public class MainMenu : MonoBehaviour
 
     void Start()
     {
+        UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync("GameScene");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenuScene");
         MainMenuButton();
     }
 

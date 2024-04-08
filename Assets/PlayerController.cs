@@ -1,16 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
     private Keyboard keyboard;
+    private readonly GameSaver gameSaver = new();
     
     private const float speed = 3.0f;
     void Start()
     {
         keyboard = Keyboard.current;
+        InvokeRepeating(nameof(SaveGame), 3.0f, 3.0f);
+        LoadPlayerPosition();
     }
 
     void Update()
@@ -51,5 +56,22 @@ public class PlayerController : MonoBehaviour
         {
             transform.position -= transform.up * step;
         }
+
+        if(keyboard.escapeKey.isPressed)
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenuScene");
+        }
+    }
+
+    private void SaveGame()
+    {
+        gameSaver.SavePlayerData(transform);
+
+        Debug.Log("Game Saved");
+    }
+
+    private void LoadPlayerPosition()
+    {   
+        gameSaver.LoadSavedPlayerData(transform);
     }
 }
