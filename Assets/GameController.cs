@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour
 {
     private Keyboard keyboard;
-    private Vector3 initialPlayerPosition = new(0, 0.1f, -10);
+    private Vector3 initialPlayerPosition = new(0, 0, -10);
 
     public Canvas mainMenuCanvas;
 

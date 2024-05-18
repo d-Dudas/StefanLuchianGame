@@ -162,10 +162,8 @@ public class CameraController : MonoBehaviour
 
         if(Physics.Raycast(ray, out RaycastHit hit, minimumInteractionDistanceUnit))
         {
-            Debug.Log("Looking for object");
             if (hit.transform.TryGetComponent<IInteractiveObject>(out var interactiveUI))
             {
-                Debug.Log("Object found");
                 interactiveUI.HandleHoverEnter();
             }
         }
