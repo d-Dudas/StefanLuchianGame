@@ -30,7 +30,8 @@ public class GameController : MonoBehaviour
         SetGameOnPause();
         VerifyIfGameCanBeContinued();
 
-        InvokeRepeating(nameof(SaveGame), 1.0f, 60.0f);
+        InvokeRepeating(nameof(SaveGame), 1.0f, 10.0f);
+        GlobalContext.PopulateLevels();
     }
 
     public void StartNewGame()
@@ -111,8 +112,10 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
-        if(keyboard.escapeKey.wasPressedThisFrame)
+        if(keyboard.escapeKey.wasPressedThisFrame && !GlobalContext.isAnyPanelOpen)
         {
+            Debug.Log("Escape key pressed");
+            Debug.Log(GlobalContext.isAnyPanelOpen);
             if(GlobalContext.gameStatus == GameStatus.paused)
             {
                 SetGameOnRunning();

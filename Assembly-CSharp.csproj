@@ -69,10 +69,14 @@
     <Compile Include="Assets\GameStatus.cs" />
     <Compile Include="Assets\OpenableDoor.cs" />
     <Compile Include="Assets\IInteractiveObject.cs" />
+    <Compile Include="Assets\InteractivePainting.cs" />
     <Compile Include="Assets\CameraController.cs" />
+    <Compile Include="Assets\PBR_Sculpture\Scripts\CameraFreeflight.cs" />
+    <Compile Include="Assets\Level.cs" />
     <Compile Include="Assets\GameController.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\SpaceZeta_Spotlight\Info.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
     <None Include="Assets\Clipboard\ReadMe\ReadMe.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
