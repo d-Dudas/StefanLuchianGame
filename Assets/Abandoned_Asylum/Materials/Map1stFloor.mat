@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Map1stFloor
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_Parent: {fileID: 2100000, guid: 8f76f2ad7cfaf6644b36ecbb9597d7f3, type: 2}
+  m_Parent: {fileID: 2100000, guid: ccd0fba37ad2fee41bed968c30bbb613, type: 2}
   m_ModifiedSerializedProperties: 20
   m_ValidKeywords:
   - _ALPHATEST_ON
