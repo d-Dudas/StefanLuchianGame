@@ -524,6 +524,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 400172, guid: 19cfcdce0b9453b45af782ede3ff985f, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.2026508
+      objectReference: {fileID: 0}
     - target: {fileID: 2300054, guid: 19cfcdce0b9453b45af782ede3ff985f, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -608,6 +612,26 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 27627d4bb39169441b338e02007f8506, type: 2}
+    - target: {fileID: 2300164, guid: 19cfcdce0b9453b45af782ede3ff985f, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ccf8620f9312dd743834b65c00011fbd, type: 2}
+    - target: {fileID: 2300166, guid: 19cfcdce0b9453b45af782ede3ff985f, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e1f37df4a1fe88b42aec7cd51b75371a, type: 2}
+    - target: {fileID: 2300168, guid: 19cfcdce0b9453b45af782ede3ff985f, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e1f37df4a1fe88b42aec7cd51b75371a, type: 2}
+    - target: {fileID: 2300170, guid: 19cfcdce0b9453b45af782ede3ff985f, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 84f382089000db54e87b70a642908ea3, type: 2}
+    - target: {fileID: 2300212, guid: 19cfcdce0b9453b45af782ede3ff985f, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3e2ffe550f6b4b8448eedd17debf7d38, type: 2}
     - target: {fileID: 2300216, guid: 19cfcdce0b9453b45af782ede3ff985f, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -11632,6 +11656,14 @@ PrefabInstance:
     - target: {fileID: 400002, guid: da1d9f4dc2a121747a3c82d392f61812, type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400004, guid: da1d9f4dc2a121747a3c82d392f61812, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 400004, guid: da1d9f4dc2a121747a3c82d392f61812, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
