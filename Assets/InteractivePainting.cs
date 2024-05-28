@@ -20,16 +20,16 @@ public class InteractivePainting : MonoBehaviour, IInteractiveObject
     private const float hoverTextDuration = 0.2f;
     private float lastHover;
 
-    private bool isHoverTextVisible = true;
+    private bool canHoverTextBeDisplayer = true;
     private void Start()
     {
         keyboard = Keyboard.current;
         frontText.SetActive(false);
+        backgroundImage.SetActive(false);
     }
 
     public void Interact()
     {
-        Debug.Log("Interacting with painting");
         GlobalContext.isAnyPanelOpen = true;
 
         if (!isCanvasMoving)
@@ -43,7 +43,7 @@ public class InteractivePainting : MonoBehaviour, IInteractiveObject
         frontText.SetActive(false);
         backgroundImage.SetActive(true);
         isCanvasMoving = true;
-        isHoverTextVisible = false;
+        canHoverTextBeDisplayer = false;
 
         float animationDuration = 0.7f;
         float elapsedTime = 0f;
@@ -76,13 +76,14 @@ public class InteractivePainting : MonoBehaviour, IInteractiveObject
 
         isCanvasMoving = false;
         backgroundImage.SetActive(false);
-        isHoverTextVisible = true;
+        canHoverTextBeDisplayer = true;
     }
     public void HandleHoverEnter()
     {
-        if(isHoverTextVisible)
+        if(canHoverTextBeDisplayer)
         {
             frontText.SetActive(true);
+            lastHover = hoverTextDuration;
         }
     }
 
@@ -93,7 +94,6 @@ public class InteractivePainting : MonoBehaviour, IInteractiveObject
 
     private void EnablePlayerMovement()
     {
-        Debug.Log("Closing painting");
         GlobalContext.isAnyPanelOpen = false;
     }
 
@@ -110,10 +110,12 @@ public class InteractivePainting : MonoBehaviour, IInteractiveObject
             }
         }
 
-        lastHover -= Time.deltaTime;
+        var dt = Time.deltaTime;
+        lastHover -= dt;
 
         if(lastHover <= 0.0f)
         {
+
             HandleHoverExit();
         }
     }

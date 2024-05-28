@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.ConstrainedExecution;
+using TMPro;
 using UnityEngine;
 
 public class OpenableDoor : MonoBehaviour, IInteractiveObject
 {
     public Transform playerTransform;
     private bool isDoorOpened = false;
+
+    public int requiredLevel = 0;
 
     private const int closedDoorAngle = 0;
     private const int openedDoorAngle = 90;
@@ -16,6 +19,7 @@ public class OpenableDoor : MonoBehaviour, IInteractiveObject
     private float lastHover;
 
     public GameObject frontText;
+    // public TextMeshPro frontText;
     public GameObject backText;
     
     void Start()
@@ -36,6 +40,12 @@ public class OpenableDoor : MonoBehaviour, IInteractiveObject
 
     public void Interact()
     {
+        if(GlobalContext.currentLevel < requiredLevel)
+        {
+            frontText.GetComponent<TextMeshProUGUI> ().text = "Required level: " + requiredLevel;
+            backText.GetComponent<TextMeshProUGUI> ().text = "Required level: " + requiredLevel;
+            return;
+        }
         int openedDoorRelativeAngle = openedDoorAngle * (ShouldOpenClockwise() ? -1 : 1);
         StartCoroutine(ChangeDoorAngle(isDoorOpened ? closedDoorAngle : openedDoorRelativeAngle));
         isDoorOpened = !isDoorOpened;
@@ -82,5 +92,7 @@ public class OpenableDoor : MonoBehaviour, IInteractiveObject
     {
         frontText.SetActive(false);
         backText.SetActive(false);
+        frontText.GetComponent<TextMeshProUGUI> ().text = "Press Enter";
+        backText.GetComponent<TextMeshProUGUI> ().text = "Press Enter:";
     }
 }

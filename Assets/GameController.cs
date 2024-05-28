@@ -19,13 +19,20 @@ public class GameController : MonoBehaviour
 
     public Transform player;
 
-    public TextMeshProUGUI savigGameText;
+    public TextMeshProUGUI savingGameText;
+
+    public TextMeshProUGUI levelText;
 
 
     void Start()
     {
         keyboard = Keyboard.current;
         mainMenuBackground.rectTransform.sizeDelta = new Vector2(Screen.width, Screen.height);
+        savingGameText.rectTransform.position = mainMenuBackground.rectTransform.sizeDelta - savingGameText.rectTransform.sizeDelta;
+
+        Vector3 levelTextPosition = levelText.rectTransform.position;
+        levelTextPosition.x = Screen.width / 2;
+        levelText.rectTransform.position = levelTextPosition;
 
         SetGameOnPause();
         VerifyIfGameCanBeContinued();
@@ -53,6 +60,8 @@ public class GameController : MonoBehaviour
                 PlayerPrefs.GetFloat("playerRotationX"),
                 PlayerPrefs.GetFloat("playerRotationY"),
                 PlayerPrefs.GetFloat("playerRotationZ")));
+        
+        GlobalContext.currentLevel = PlayerPrefs.GetInt("playerLevel");
     }
 
     public void ExitGame()
@@ -67,7 +76,8 @@ public class GameController : MonoBehaviour
                PlayerPrefs.HasKey("playerZ") &&
                PlayerPrefs.HasKey("playerRotationX") &&
                PlayerPrefs.HasKey("playerRotationY") &&
-               PlayerPrefs.HasKey("playerRotationZ");
+               PlayerPrefs.HasKey("playerRotationZ") &&
+               PlayerPrefs.HasKey("playerLevel");
     }
 
     public void VerifyIfGameCanBeContinued()
@@ -77,7 +87,7 @@ public class GameController : MonoBehaviour
 
     private void SaveGame()
     {
-        savigGameText.gameObject.SetActive(true);
+        savingGameText.gameObject.SetActive(true);
 
         PlayerPrefs.SetFloat("playerX", player.position.x);
         PlayerPrefs.SetFloat("playerY", player.position.y);
@@ -87,12 +97,14 @@ public class GameController : MonoBehaviour
         PlayerPrefs.SetFloat("playerRotationY", player.rotation.y);
         PlayerPrefs.SetFloat("playerRotationZ", player.rotation.z);
 
+        PlayerPrefs.SetInt("playerLevel", GlobalContext.currentLevel);
+
         Invoke(nameof(HideSavingGameText), 3.0f);
     }
 
     private void HideSavingGameText()
     {
-        savigGameText.gameObject.SetActive(false);
+        savingGameText.gameObject.SetActive(false);
     }
 
     private void SetGameOnPause()
@@ -114,8 +126,6 @@ public class GameController : MonoBehaviour
     {
         if(keyboard.escapeKey.wasPressedThisFrame && !GlobalContext.isAnyPanelOpen)
         {
-            Debug.Log("Escape key pressed");
-            Debug.Log(GlobalContext.isAnyPanelOpen);
             if(GlobalContext.gameStatus == GameStatus.paused)
             {
                 SetGameOnRunning();
@@ -125,5 +135,7 @@ public class GameController : MonoBehaviour
                 SetGameOnPause();
             }
         }
+
+        levelText.text = "Level " + GlobalContext.currentLevel;
     }
 }
